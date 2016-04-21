@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Cube control</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<style>
+		body {
+		-ms-word-break: break-all;
+		word-break: break-all;
+
+		/* Non standard for webkit */
+		word-break: break-word;
+
+		-webkit-hyphens: auto;
+		-moz-hyphens: auto;
+		hyphens: auto;
+		}
+	</style>
+  </head>
+  <body>
+
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12 center-block">
+			<button type="button" class="btn center-block btn-success btn-block" cmd="start">
+				Start rainbow
+			</button> 
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 center-block">
+			<button type="button" class="btn center-block btn-default btn-block" cmd="stop">
+				Stop rainbow
+			</button> 
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 center-block"> 
+			<button type="button" class="btn center-block btn-default btn-block" cmd="off">
+				Off
+			</button> 
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div align="center">
+			<button type="button" class="btn btn-danger" style="width:32.6%" cmd="on?RED">
+				Red
+			</button> 
+			<button type="button" class="btn btn-success" style="width:32.6%" cmd="on?GREEN">
+				Green
+			</button> 
+			<button type="button" class="btn btn-info" style="width:32.6%" cmd="on?BLUE">
+				Blue
+			</button>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<textarea class="form-control" rows="5" id="frameData"></textarea>
+			<button type="button" class="btn center-block btn-default btn-block" id="btnFrame">
+				Custom Frame
+			</button>
+	        <p>RRGGBB in 00-FF format for each pixel, order by x, y, z. Trailing zeros should be added if timing needs to be consistent. Examples:</p>
+			<ul>
+				<li>Purple pixel at 0, 2, 1: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+				000000000000000000000000000000000000000000000000000000000000ff00ff</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script>
+		$(function(){
+			$("button").click(function() {
+				if($(this).attr("cmd")) {
+					$.ajax('/api/'+($(this).attr("cmd")));
+				} else if ($(this).attr("id") === "btnFrame") {
+					$.ajax('/api/frame?'+$("#frameData").val());
+				}   
+			});
+		});
+	</script>
+
+  </body>
+</html>
